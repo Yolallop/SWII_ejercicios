@@ -26,7 +26,7 @@ app.post("/validate/peliculas", (req, res) => {
 app.post("/validate/actores", (req, res) => {
     const result = validateJSON(actoresSchema, req.body);
     if (result.valid) {
-        res.status(200).json({ message: "JSON válido" });
+        res.status(200).json({ message: "JSON válid" });
     } else {
         res.status(400).json({ error: "JSON inválido", details: result.errors });
     }
@@ -34,5 +34,5 @@ app.post("/validate/actores", (req, res) => {
 
 const PORT = 3000;
 app.listen(PORT, () => {
-    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+    console.log(`Servidor en http://localhost:${PORT}`);
 });
