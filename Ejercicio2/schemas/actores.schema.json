@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "actor.schema.json",
+    "title": "Actor",
+    "type": "object",
+    "properties": {
+        "nombre": { "type": "string" },
+        "edad": { "type": "integer", "minimum": 0 },
+        "peliculas": {
+            "type": "array",
+            "items": { "type": "string" },
+            "minItems": 1
+        }
+    },
+    "required": ["nombre", "edad", "peliculas"]
+}

@@ -1,0 +1,16 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "pelicula.schema.json",
+    "title": "Película",
+    "type": "object",
+    "properties": {
+        "titulo": { "type": "string" },
+        "año": { "type": "integer", "minimum": 1900 },
+        "genero": { 
+            "type": "string",
+            "enum": ["Acción", "Comedia", "Drama", "Terror", "Romance"]
+        },
+        "calificacion": { "type": "number", "minimum": 0, "maximum": 10 }
+    },
+    "required": ["titulo", "año", "genero", "calificacion"]
+}
