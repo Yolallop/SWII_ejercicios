@@ -1,0 +1,215 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de Cine",
+    "description": "API",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor local"
+    }
+  ],
+  "paths": {
+    "/sessions": {
+      "get": {
+        "summary": "Obtener la lista de sesiones",
+        "responses": {
+          "200": {
+            "description": "Lista de sesiones",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Session" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva sesión",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Session" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Sesión creada correctamente" },
+          "400": { "description": "Error en la solicitud" }
+        }
+      }
+    },
+    "/sessions/{id}": {
+      "get": {
+        "summary": "Obtener detalles de una sesión",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sesión encontrada",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Session" } }
+            }
+          },
+          "404": { "description": "Sesión no encontrada" }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una sesión",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Session" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Sesión actualizada correctamente" },
+          "404": { "description": "Sesión no encontrada" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una sesión",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Sesión eliminada" },
+          "404": { "description": "Sesión no encontrada" }
+        }
+      }
+    },
+    "/sessions/{id}/reservar": {
+      "post": {
+        "summary": "Comprar una entrada para una sesión",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "num_tickets": { "type": "integer" },
+                  "seats": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Entrada comprada exitosamente" },
+          "400": { "description": "Error en la solicitud" },
+          "404": { "description": "Sesión no encontrada" }
+        }
+      }
+    },
+    "/peliculas": {
+      "get": {
+        "summary": "Obtener todas las películas",
+        "responses": {
+          "200": {
+            "description": "Lista de películas",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Movie" }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva película",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Movie" }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Película creada correctamente" },
+          "400": { "description": "Error en la solicitud" }
+        }
+      }
+    },
+    "/peliculas/{id}": {
+      "get": {
+        "summary": "Obtener detalles de una película",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalles de la película",
+            "content": {
+              "application/json": { "schema": { "$ref": "#/components/schemas/Movie" } }
+            }
+          },
+          "404": { "description": "Película no encontrada" }
+        }
+      },
+      "put": {
+        "summary": "Actualizar una película",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Movie" }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Película actualizada correctamente" },
+          "404": { "description": "Película no encontrada" }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una película",
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Película eliminada" },
+          "404": { "description": "Película no encontrada" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Session": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "movie": { "type": "string" },
+          "cinema_room": { "type": "integer" },
+          "date": { "type": "string", "format": "date" },
+          "time": { "type": "string" },
+          "available_seats": { "type": "integer" }
+        }
+      },
+    
+    }
+  }
+}
